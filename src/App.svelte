@@ -8,7 +8,7 @@
 
 	import Time from "svelte-time";
 	const ZINAS_NEWS_API = "https://white-feather-2517.fly.dev";
-	// const ZINAS_NEWS_API = "http://localhost:8080";
+	//  const ZINAS_NEWS_API = "http://localhost:8080";
 
 	let news; 
 	async function getNews() {
@@ -48,6 +48,7 @@
 	function appendSource(item, source) {
 		return {... item, source: source};
 	}
+
 </script>
 
 <main>
@@ -65,6 +66,7 @@
 <article class="article">
 	<a href="{item.link}" target="_blank">
 		{#if item.enclosure && item.enclosure.url}<img src="{item.enclosure?.url}" alt="{item.title}" loading="lazy" />{/if}
+		{#if item['media:content']}<img src="{item['media:content']['$'].url}" alt="{item.title}" loading="lazy" />{/if}
 		<h2>{@html item.title}</h2>
 	</a>
 	<div class="content">
@@ -174,6 +176,8 @@ article {
 
 .article img {
 	width: 100%;
+	max-height: 250px;
+	object-fit: cover;
 }
 
 article .content {
