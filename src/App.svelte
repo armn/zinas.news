@@ -5,16 +5,17 @@
 	dayjs.locale("lv"); 
   </script>
 <script>
+	import { onMount } from 'svelte';
 
 	import Time from "svelte-time";
 	const ZINAS_NEWS_API = "https://white-feather-2517.fly.dev";
 	//  const ZINAS_NEWS_API = "http://localhost:8080";
 
 	let news; 
+
 	async function getNews() {
 		const data = await fetch(ZINAS_NEWS_API);
 		const results = await data.json();
-
 
 		const apollo = results.apollo.items.map(item => {
 			return appendSource(item, "apollo")
@@ -36,18 +37,22 @@
 		// 	return appendSource(item, "ir")
 		// })
 
-		news = [...apollo, ...delfi, ...tvnet, ...lsm];
+		const unsortedNews = [...apollo, ...delfi, ...tvnet, ...lsm];
 
-		news.sort(function(a, b) {
+		news = unsortedNews.sort(function(a, b) {
   			return new Date(b.pubDate) - new Date(a.pubDate);
 		});
+		
 	}
 	
-	getNews();
 
 	function appendSource(item, source) {
 		return {... item, source: source};
 	}
+
+	onMount(async () => {
+		await getNews();
+	});
 
 </script>
 
