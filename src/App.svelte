@@ -16,26 +16,43 @@
 	async function getNews() {
 		const data = await fetch(ZINAS_NEWS_API);
 		const results = await data.json();
+		let apollo, delfi, tvnet, lsm;
 
-		const apollo = results.apollo.items.map(item => {
+		if (results.apollo) { 
+			apollo = results.apollo?.items.map(item => {
 			return appendSource(item, "apollo")
-		})
+		});
+		
+	}
+	else {
+			apollo = [];
+		}
 
-		const delfi = results.delfi.items.map(item => {
+		if (results.delfi) {
+
+		delfi = results.delfi?.items.map(item => {
 			return appendSource(item, "delfi")
 		})
+	}
+	else {
+		delfi = [];
+	}
 
-		const tvnet = results.tvnet.items.map(item => {
+		if (results.tvnet) {
+			tvnet = results.tvnet?.items.map(item => {
 			return appendSource(item, "tvnet")
 		})
+	} else {
+		tvnet = [];
+	}
 
-		const lsm = results.lsm.items.map(item => {
+		if (results.lsm) {
+			lsm = results.lsm?.items.map(item => {
 			return appendSource(item, "lsm")
 		})
-
-		// const ir = results.ir.items.map(item => {
-		// 	return appendSource(item, "ir")
-		// })
+	} else {
+		lsm = [];
+	}
 
 		const unsortedNews = [...apollo, ...delfi, ...tvnet, ...lsm];
 
