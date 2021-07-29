@@ -270,12 +270,18 @@ main {
 	}
 	header img {
 		width: auto;
-		height: 20px;
+		height: 30px;
 		margin: 1rem;
 		opacity: 0.2;
 		cursor: pointer;
 		transition: opacity 0.2s linear;
 	}
+
+  @media (max-width: 820px) {
+  header img {
+    height: 20px;
+  }
+  }
 	header img.active {
 		opacity: 1;
 	}
