@@ -246,6 +246,7 @@ main {
 	header {
 		display: flex;
 		justify-content: flex-start;
+		align-items: center;
 		background: white;
 		padding: 0.5rem 0;
 		margin-bottom: 1rem;
@@ -260,17 +261,16 @@ main {
 		background: transparent;
 		border: none;
 		font-size: 1.5rem;
-		margin-right: 1rem;
 	}
 	.sources {
 		display: flex;
-		justify-content: center;
+		justify-content: flex-start;
 		align-items: flex-start;
 		flex-wrap: wrap;
 	}
 	header img {
 		width: auto;
-		height: 30px;
+		height: 20px;
 		margin: 1rem;
 		opacity: 0.2;
 		cursor: pointer;
@@ -282,6 +282,8 @@ main {
 
 	header .theme {
 		margin-left: auto;
+		padding: 1rem;
+
 	}
   .news {
     display: grid;
