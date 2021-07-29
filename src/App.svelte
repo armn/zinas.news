@@ -8,6 +8,7 @@
 
 	import Time from "svelte-time";
 	const ZINAS_NEWS_API = "https://white-feather-2517.fly.dev";
+	// const ZINAS_NEWS_API = "http://localhost:8080";
 
 	let news; 
 	async function getNews() {
@@ -27,7 +28,15 @@
 			return appendSource(item, "tvnet")
 		})
 
-		news = [...apollo, ...delfi, ...tvnet];
+		const lsm = results.lsm.items.map(item => {
+			return appendSource(item, "lsm")
+		})
+
+		// const ir = results.ir.items.map(item => {
+		// 	return appendSource(item, "ir")
+		// })
+
+		news = [...apollo, ...delfi, ...tvnet, ...lsm];
 
 		news.sort(function(a, b) {
   			return new Date(b.pubDate) - new Date(a.pubDate);
@@ -56,7 +65,7 @@
 <article class="article">
 	<a href="{item.link}" target="_blank">
 		{#if item.enclosure && item.enclosure.url}<img src="{item.enclosure?.url}" alt="{item.title}" loading="lazy" />{/if}
-		<h2>{item.title}</h2>
+		<h2>{@html item.title}</h2>
 	</a>
 	<div class="content">
     <p>{@html item.content}</p>
